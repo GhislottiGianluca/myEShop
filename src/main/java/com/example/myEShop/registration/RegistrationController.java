@@ -12,8 +12,11 @@ public class RegistrationController {
 
     @PostMapping
     public String register(@RequestBody RegistrationRequest request) {
-        System.out.println("prova");
-        System.out.println(request.getFirstName());
         return registrationService.register(request);
+    }
+
+    @GetMapping(path = "confirm")
+    public String confirm(@RequestParam("token") String token) {
+        return registrationService.confirmToken(token);
     }
 }
