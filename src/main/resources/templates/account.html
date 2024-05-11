@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product details - myEShop</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Account Page - myEShop</title>
+  <link rel="stylesheet" href="/css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sedan:ital@0;1&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 <div class="small-container">
   <div class="navbar">
     <div class="logo">
-      <a href="index.html"> <img src="img/logo.webp" width="100px"></a>
+      <a href="index.html"> <img src="/img/logo.webp" width="100px"></a>
     </div>
     <nav>
       <ul id="MenuItems">
@@ -24,8 +24,8 @@
         <li><a href="products.html">Product</a></li>
         <li><a href="account.html">Account</a></li>
       </ul>
-      <a href="cart.html"><img src="img/cart_logo.png" width="30px" height="30px"></a>
-      <img src="img/menu-icon.png" class="menu-icon" onclick="menutoggle()">
+      <a href="cart.html"><img src="/img/cart_logo.png" width="30px" height="30px"></a>
+      <img src="/img/menu-icon.png" class="menu-icon" onclick="menutoggle()">
     </nav>
   </div>
 </div>
@@ -37,7 +37,7 @@
   <div class="container">
     <div class="row">
       <div class="col-2">
-        <img src="img/logo.webp" width="100%">
+        <img src="/img/logo.webp" width="100%">
       </div>
       <div class="col-2">
         <div class="form-container">
@@ -47,18 +47,18 @@
             <hr id="Indicator">
           </div>
 
-          <form id="LoginForm">
-            <input type="text" placeholder="E-Mail">
-            <input type="password" placeholder="Password">
+          <form id="LoginForm" action="/login" method="post">
+            <input id="email" type="text" placeholder="E-Mail" required>
+            <input id="password" type="password" placeholder="Password" required>
             <button type="submit" class="btn">Login</button>
             <a href="">Forgot password</a>
           </form>
 
           <form id="RegForm">
-            <input type="text" placeholder="First name">
-            <input type="text" placeholder="Last name">
-            <input type="text" placeholder="E-Mail">
-            <input type="password" placeholder="Password">
+            <input type="text" placeholder="First name" name="firstName" required>
+            <input type="text" placeholder="Last name" name="lastName" required>
+            <input type="text" placeholder="E-Mail" name="email" required>
+            <input type="password" placeholder="Password" name="password" required>
             <button type="submit" class="btn">Register</button>
           </form>
 
@@ -78,13 +78,13 @@
         <h3>Download Our App</h3>
         <p>Download App for Android and ios mobile phone.</p>
         <div class="app-logo">
-          <img src="img/logo.webp">
-          <img src="img/logo.webp">
+          <img src="/img/logo.webp">
+          <img src="/img/logo.webp">
         </div>
       </div>
 
       <div class="footer-col-2">
-        <img src="img/logo.webp">
+        <img src="/img/logo.webp">
         <p>Our purpose is to sustainably make the pleasure benefits of ...</p>
       </div>
 
@@ -154,6 +154,43 @@
   window.onload = function() {
     register();
   }
+</script>
+
+<script>
+
+  document.getElementById('RegForm').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevenire il submit standard del form
+
+    let formData = new FormData(this);
+    let jsonObject = {};
+
+    formData.forEach((value, key) => {
+      jsonObject[key] = value;
+    });
+
+    fetch('/api/v1/registration', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(jsonObject)
+    })
+            .then(response => response.json())
+            .then(data => {
+              if (data.url) {
+                window.location.href = data.url;  // Reindirizzamento alla nuova URL
+              } else {
+                throw new Error('Missing URL for redirection');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('There was an issue with your registration.');
+            })
+            .finally(() => {
+              this.reset();  // Pulizia del form dopo l'invio
+            });
+  });
 
 
 </script>
