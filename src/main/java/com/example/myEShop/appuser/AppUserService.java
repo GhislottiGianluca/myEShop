@@ -3,6 +3,7 @@ package com.example.myEShop.appuser;
 import com.example.myEShop.registration.token.ConfirmationToken;
 import com.example.myEShop.registration.token.ConfirmationTokenRepository;
 import com.example.myEShop.registration.token.ConfirmationTokenService;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,8 +29,24 @@ public class AppUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return appUserRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
+        Optional<AppUser> user = appUserRepository.findByEmail(email);
+        if(user.isPresent()){
+            var userObj = user.get();
+            return User.builder()
+                    .username(userObj.getUsername())
+                    .password(userObj.getPassword())
+                    .roles(getRoles(userObj))
+                    .build();
+        }else {
+            throw new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email));
+        }
+    }
+
+    private String[] getRoles(AppUser user){
+        if(user.getRole() == null){
+            return new String[] {"USER"};
+        }
+        return user.getRole().split(",");
     }
 
     public String signUpUser(AppUser appUser){
@@ -70,7 +87,7 @@ public class AppUserService implements UserDetailsService {
         return token;
     }
 
-    public int enableAppUser(String email) {
-        return appUserRepository.enableAppUser(email);
+    public void enableAppUser(String email) {
+        appUserRepository.enableAppUser(email);
     }
 }
