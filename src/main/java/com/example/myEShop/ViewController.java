@@ -22,9 +22,8 @@ public class ViewController {
     public String success() {
         return "attending-confirmation";
     }
-
     @GetMapping("/login")
-    public String handleLoginPage(){
-        return "account";
-    }
+    public String handleLoginPage(){return "account";}
+    @GetMapping("/cart")
+    public String handleCartPage(){return "cart";}
 }
