@@ -26,4 +26,6 @@ public class ViewController {
     public String handleLoginPage(){return "account";}
     @GetMapping("/cart")
     public String handleCartPage(){return "cart";}
+    @GetMapping("/products")
+    public String handleProductPage(){return "products";}
 }
