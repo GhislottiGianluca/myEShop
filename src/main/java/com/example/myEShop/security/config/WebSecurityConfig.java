@@ -40,6 +40,13 @@ public class WebSecurityConfig {
                                     .successHandler(new AuthenticationSuccessHandler())
                                     .permitAll()
                     )
+                    .logout(logout -> logout
+                            .logoutUrl("/logout")
+                            .logoutSuccessUrl("/login")
+                            .deleteCookies("JSESSIONID")
+                            .invalidateHttpSession(true)
+                            .clearAuthentication(true)
+                    )
                     .build();
     }
 
