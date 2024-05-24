@@ -3,6 +3,7 @@ package com.example.myEShop.security.config;
 import com.example.myEShop.appuser.AppUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -30,7 +31,7 @@ public class WebSecurityConfig {
         return httpSecurity
                     .csrf(AbstractHttpConfigurer::disable)
                     .authorizeHttpRequests(auth -> auth
-                            .requestMatchers("/home", "/register/**", "/confirm", "/attending-confirmation").permitAll()
+                            .requestMatchers("/home", "/api/v1/register/**", "/attending-confirmation").permitAll()
                             .requestMatchers("/admin/**").hasRole("ADMIN")
                             .requestMatchers("/user/**").hasRole("USER")
                             .anyRequest().authenticated()

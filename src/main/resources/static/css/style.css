@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Sedan', serif;
+    font-family: "Source Code Pro", monospace;
     <-background: radial-gradient(#fff, #008b8b)->
     min-height: 100%;
     display: flex;
