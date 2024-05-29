@@ -46,7 +46,7 @@
             <hr id="Indicator">
           </div>
 
-          <form id="LoginForm" action="/login" method="post">
+          <form id="LoginForm" onsubmit="loginSubmit(); return false;">
             <input id="username" type="text" placeholder="E-Mail" required>
             <input id="password" type="password" placeholder="Password" required>
             <button type="submit" class="btn">Login</button>
@@ -145,62 +145,67 @@
       password: form.password.value
     };
 
-    fetch('/register/user', {
+    fetch('/api/v1/register/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(formData)
     })
-            .then(response => response.json()) // Assuming the server responds with JSON
+            .then(response => response.json())
             .then(data => {
               if (data.redirectUrl) {
-                window.location.href = data.redirectUrl; // Redirect if the server provides a URL
+                window.location.href = data.redirectUrl;
               } else {
-                console.log(data); // Handle other data or responses
+                console.log(data);
               }
             })
             .catch(error => console.error('Error:', error));
 
-    return false; // Prevent default form submission
+    return false;
   }
 
 </script>
 <script>
-  document.getElementById("LoginForm").addEventListener("submit", function(event) {
-    event.preventDefault();
 
-    var usernameInput = document.getElementById('username');
-    var passwordInput = document.getElementById('password');
+  function loginSubmit(){
 
-    var loginData = {
-      username: usernameInput.value,
-      password: passwordInput.value
-    };
+    document.getElementById("LoginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
 
-    fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: new URLSearchParams(loginData)
-    })
-            .then(response => {
-              if (response.ok && response.redirected) {
-                window.location.href = response.url;
-              } else {
-                return response.text();
-              }
-            })
-            .then(text => {
-              if (text) {
-                console.error('Login failed:', text);
-                alert('Login failed: ' + text);
-              }
-            })
-            .catch(error => console.error('Error during login:', error));
-  });
+      var usernameInput = document.getElementById('username');
+      var passwordInput = document.getElementById('password');
 
+      var loginData = {
+        username: usernameInput.value,
+        password: passwordInput.value
+      };
+
+      fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(loginData)
+      })
+              .then(response => {
+                if (response.ok && response.redirected) {
+                  window.location.href = response.url;
+                } else {
+                  return response.text();
+                }
+              })
+              .then(text => {
+                if (text) {
+                  console.error('Login failed:', text);
+                  alert('Login failed: ' + text);
+                }
+              })
+              .catch(error => console.error('Error during login:', error));
+    });
+
+    return false;
+  }
 
 </script>
 
