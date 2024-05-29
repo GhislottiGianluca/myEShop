@@ -3,6 +3,7 @@ package com.example.myEShop.registration;
 import com.example.myEShop.appuser.AppUser;
 import com.example.myEShop.appuser.AppUserRole;
 import com.example.myEShop.appuser.AppUserService;
+import com.example.myEShop.cart.Cart;
 import com.example.myEShop.email.EmailSender;
 import com.example.myEShop.registration.token.ConfirmationToken;
 import com.example.myEShop.registration.token.ConfirmationTokenService;
@@ -35,11 +36,12 @@ public class RegistrationService {
                         request.getLastName(),
                         request.getEmail(),
                         request.getPassword(),
-                        "USER"
+                        AppUserRole.USER,
+                        new Cart()
                 )
         );
 
-        String link = "http://localhost:8080/confirm?token=" + token;
+        String link = "http://localhost:8080/api/v1/register/confirm?token=" + token;
         emailSender.send(
                 request.getEmail(),
                 buildEmail(request.getFirstName(), link));

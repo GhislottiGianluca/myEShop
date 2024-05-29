@@ -8,9 +8,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.myEShop.cart.Cart;
+
 import jakarta.persistence.*;
 import java.util.Collections;
 import java.util.Collection;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -34,26 +37,33 @@ public class AppUser implements UserDetails {
     private String lastName;
     private String email;
     private String password;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private AppUserRole role;
     private Boolean locked = false;
     private Boolean enabled = false;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @PrimaryKeyJoinColumn
+    private Cart cart;
 
     public AppUser(String firstName,
                    String lastName,
                    String email,
                    String password,
-                   String appUserRole){
+                   AppUserRole appUserRole,
+                   Cart cart){
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.role = appUserRole;
+        this.cart = cart;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.toString());
         return Collections.singletonList(authority);
     }
 
