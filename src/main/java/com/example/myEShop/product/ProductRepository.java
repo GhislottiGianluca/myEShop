@@ -5,10 +5,20 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p WHERE p.id = ?1")
     Optional<Product> findProductById(Long id);
+
+    @Query("SELECT p FROM Product p ORDER BY p.price")
+    List<Product> getProductsByPrice();
+
+    @Query("SELECT p FROM Product p ORDER BY p.sold")
+    List<Product> getProductsBySold();
+
+    // TODO OTHER CASE
+    
 }

@@ -8,22 +8,27 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductDTOMapper productDTOMapper;
 
-    @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, ProductDTOMapper productDTOMapper) {
         this.productRepository = productRepository;
+        this.productDTOMapper = productDTOMapper;
     }
 
-    public List<Product> getProduct(){
-        return productRepository.findAll();
+    public List<ProductDTO> getProduct(){
+        return productRepository.findAll()
+                .stream()
+                .map(productDTOMapper)
+                .collect(Collectors.toList());
     }
 
-    public void addNewPoduct(Product product) {
+    public void addNewProduct(Product product) {
         productRepository.save(product);
     }
 
@@ -55,4 +60,19 @@ public class ProductService {
             p.setDescription(description);
         }
     }
+
+    public List<ProductDTO> getProductsByPrice(){
+        return productRepository.getProductsByPrice()
+                .stream()
+                .map(productDTOMapper)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProductDTO> getProductsBySold(){
+        return productRepository.getProductsBySold()
+                .stream()
+                .map(productDTOMapper)
+                .collect(Collectors.toList());
+    }
+
 }

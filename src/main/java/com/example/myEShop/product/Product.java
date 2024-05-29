@@ -7,7 +7,6 @@ import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -32,8 +31,19 @@ public class Product {
     @Column(nullable = false, updatable = false)
     private LocalDateTime creationTime;
     private String title;
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String description;
-    private String author;
+    private String category;
+    private String image1;
+    private String image2;
+    private String image3;
+    private String image4;
+    private String image5;
+    private double price;
+    private String currency;
+    private int remained;
+    private int sold;
 
     public Product() {
     }
@@ -41,18 +51,54 @@ public class Product {
     public Product(Long id,
                    String title,
                    String description,
-                   String author) {
+                   String category,
+                   String image1,
+                   String image2,
+                   String image3,
+                   String image4,
+                   String image5,
+                   double price,
+                   String currency,
+                   int remained,
+                   int sold) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.author = author;
+        this.category = category;
+        this.image1 = image1;
+        this.image2 = image2;
+        this.image3 = image3;
+        this.image4 = image4;
+        this.image5 = image5;
+        this.price = price;
+        this.currency = currency;
+        this.remained = remained;
+        this.sold = sold;
     }
 
     public Product(String title,
                    String description,
-                   String author) {
+                   String category,
+                   String image1,
+                   String image2,
+                   String image3,
+                   String image4,
+                   String image5,
+                   double price,
+                   String currency,
+                   int remained,
+                   int sold) {
         this.title = title;
         this.description = description;
-        this.author = author;
+        this.category = category;
+        this.image1 = image1;
+        this.image2 = image2;
+        this.image3 = image3;
+        this.image4 = image4;
+        this.image5 = image5;
+        this.price = price;
+        this.currency = currency;
+        this.remained = remained;
+        this.sold = sold;
     }
 }
