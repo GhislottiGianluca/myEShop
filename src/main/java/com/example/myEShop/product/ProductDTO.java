@@ -1,6 +1,7 @@
 package com.example.myEShop.product;
 
 public record ProductDTO (
+        Long id,
         String title,
         String description,
         String image1,

@@ -2,7 +2,7 @@ package com.example.myEShop.product;
 
 public enum ProductCategories {
     CUP("Cup"),
-    TSHIRT("Thirt"),
+    TSHIRT("TShirt"),
     SWEATSHIRT("Sweatshirt");
 
     private final String value;

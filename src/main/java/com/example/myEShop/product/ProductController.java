@@ -22,6 +22,15 @@ public class ProductController {
         return productService.getProduct();
     }
 
+    @GetMapping(path = "/{category}")
+    public List<ProductDTO> getProduct(@PathVariable("category") String category){
+        return productService.getProductByCategory(category);
+    }
+
+    @GetMapping(path = "/getById/{id}")
+    public ProductDTO getProductById(@PathVariable Long id) {return productService.getProductById(id);}
+
+
     @PostMapping
     public void addNewProduct(@RequestBody Product product){
         productService.addNewProduct(product);
@@ -41,10 +50,28 @@ public class ProductController {
         productService.updateProduct(productId, title, description);
     }
 
+    @GetMapping(path="/{category}/getByPrice")
+    public List<ProductDTO> getByPrice(@PathVariable("category") String category){return productService.getProductsByPriceWithCategory(category);}
+
     @GetMapping(path="/getByPrice")
     public List<ProductDTO> getByPrice(){return productService.getProductsByPrice();}
 
+    @GetMapping(path="/{category}/getBySold")
+    public List<ProductDTO> getBySold(@PathVariable("category") String category){return productService.getProductsBySoldWithCategory(category);}
+
     @GetMapping(path="/getBySold")
     public List<ProductDTO> getBySold(){return productService.getProductsBySold();}
+
+    @GetMapping(path="/getBestSellers")
+    public List<ProductDTO> getBestSellers(){return productService.getBestFourProductsForSales();}
+
+    @GetMapping(path="/getCupsProducts")
+    public List<ProductDTO> getCupsProduct(){return productService.getCupsProducts();}
+
+    @GetMapping(path="/getTShirtProducts")
+    public List<ProductDTO> getTShirtProduct(){return productService.getTShirtProducts();}
+
+    @GetMapping(path="/getSweatshirtProducts")
+    public List<ProductDTO> getSweatshirtProduct(){return productService.getCupsProducts();}
 
 }

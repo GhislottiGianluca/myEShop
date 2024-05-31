@@ -10,22 +10,34 @@ public class ViewController {
     public String handlingWelcome() {
         return "account";
     }
+
     @GetMapping("/admin/home")
     public String handlingAdminHome() {
         return "index";
     }
+
     @GetMapping("/user/home")
     public String handlingUserHome() {
         return "index";
     }
+
     @GetMapping("/attending-confirmation")
     public String success() {
         return "attending-confirmation";
     }
+
     @GetMapping("/login")
     public String handleLoginPage(){return "account";}
+
     @GetMapping("/cart")
     public String handleCartPage(){return "cart";}
+
     @GetMapping("/products")
     public String handleProductPage(){return "products";}
+
+    @GetMapping("/products/{category}")
+    public String handleCategoryProductPage(){return "products";}
+
+    @GetMapping("/product-details/{id}")
+    public String handleProductDetails(){return "product-details";}
 }
