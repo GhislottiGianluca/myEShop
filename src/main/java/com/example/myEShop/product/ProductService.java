@@ -1,14 +1,12 @@
 package com.example.myEShop.product;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +27,7 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public ProductDTO getProductById(Long id ){
+    public ProductDTO getProductById(Long id){
         Optional<Product> p = productRepository.findProductById(id);
         return p.map(productDTOMapper).orElse(null);
     }
@@ -128,6 +126,12 @@ public class ProductService {
         return productRepository.getProductsBySoldWithCategory(category)
                 .stream()
                 .map(productDTOMapper)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProductDTO> getProductsByIds(Set<Long> productIds) {
+        return productIds.stream()
+                .map(this::getProductById)
                 .collect(Collectors.toList());
     }
 

@@ -1,10 +1,14 @@
 package com.example.myEShop.cart;
 
+import com.example.myEShop.appuser.AppUser;
+import com.example.myEShop.appuser.AppUserService;
+import com.example.myEShop.product.ProductDTO;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path="api/v1/cart")
@@ -12,15 +16,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class CartController {
 
     private final CartService cartService;
-
-    @PostMapping("/add")
-    public void handlingAddingCartItems(@RequestBody Long user_id, Long prod_id){
-        cartService.addCartElement(user_id, prod_id);
-    }
+    private final AppUserService appUserService;
 
     @PostMapping("/delete")
-    public void handlingDeletingCartItems(@RequestBody Long user_id, Long prod_id){
-        cartService.deleteCartElement(user_id, prod_id);
+    public void handlingDeletingCartItems(@RequestBody Long prod_id){
+        cartService.deleteCartElement(prod_id);
     }
 
+    @PostMapping("/addProduct")
+    public void handlingAddingCartItems(@RequestBody CartRequest cartRequest) {
+        cartService.addCartElement(cartRequest.getProd_id(), cartRequest.getQuantity());
+    }
+
+    @PostMapping("/removeProduct")
+    public void handlingRemovingCartItem(@RequestBody Long prod_id){
+        cartService.removeCartElement(prod_id);
+    }
+
+    @PutMapping("/cartItemQuantity")
+    public void handlingCartQuantity(@RequestBody Long prod_id, int quantity){
+        cartService.handlingCartQuantity(prod_id, quantity);
+    }
+
+    @GetMapping("/getCartItems")
+    public List<CartItemsWrapper> getCartItems() {
+        return cartService.getCartItems();
+    }
 }
