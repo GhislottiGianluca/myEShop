@@ -12,7 +12,6 @@ public class ProductBuilder {
     private String image2;
     private String image3;
     private String image4;
-    private String image5;
     private double price;
     private String currency;
     private int remained;
@@ -57,11 +56,6 @@ public class ProductBuilder {
         return this;
     }
 
-    public ProductBuilder image5(String image5) {
-        this.image5 = image5;
-        return this;
-    }
-
     public ProductBuilder price(double price) {
         this.price = price;
         return this;
@@ -91,7 +85,6 @@ public class ProductBuilder {
         product.setImage2(image2);
         product.setImage3(image3);
         product.setImage4(image4);
-        product.setImage5(image5);
         product.setPrice(price);
         product.setCurrency(currency);
         product.setRemained(remained);

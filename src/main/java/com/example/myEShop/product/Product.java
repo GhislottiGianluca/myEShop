@@ -39,7 +39,6 @@ public class Product {
     private String image2;
     private String image3;
     private String image4;
-    private String image5;
     private double price;
     private String currency;
     private int remained;
@@ -56,7 +55,6 @@ public class Product {
                    String image2,
                    String image3,
                    String image4,
-                   String image5,
                    double price,
                    String currency,
                    int remained,
@@ -69,7 +67,6 @@ public class Product {
         this.image2 = image2;
         this.image3 = image3;
         this.image4 = image4;
-        this.image5 = image5;
         this.price = price;
         this.currency = currency;
         this.remained = remained;
@@ -83,7 +80,6 @@ public class Product {
                    String image2,
                    String image3,
                    String image4,
-                   String image5,
                    double price,
                    String currency,
                    int remained,
@@ -95,7 +91,6 @@ public class Product {
         this.image2 = image2;
         this.image3 = image3;
         this.image4 = image4;
-        this.image5 = image5;
         this.price = price;
         this.currency = currency;
         this.remained = remained;

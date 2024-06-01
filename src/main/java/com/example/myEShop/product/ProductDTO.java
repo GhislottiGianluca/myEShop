@@ -8,7 +8,6 @@ public record ProductDTO (
         String image2,
         String image3,
         String image4,
-        String image5,
         double price,
         String currency
 ){
