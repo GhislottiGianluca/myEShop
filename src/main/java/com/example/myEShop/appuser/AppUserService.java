@@ -3,6 +3,9 @@ package com.example.myEShop.appuser;
 import com.example.myEShop.registration.token.ConfirmationToken;
 import com.example.myEShop.registration.token.ConfirmationTokenRepository;
 import com.example.myEShop.registration.token.ConfirmationTokenService;
+import com.example.myEShop.cart.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.HashMap;
 
 @Service
 @AllArgsConstructor
@@ -26,6 +30,7 @@ public class AppUserService implements UserDetailsService {
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
+    private final CartRepository cartRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -42,11 +47,11 @@ public class AppUserService implements UserDetailsService {
         }
     }
 
-    private String[] getRoles(AppUser user){
+    private String getRoles(AppUser user){
         if(user.getRole() == null){
-            return new String[] {"USER"};
+            return AppUserRole.USER.toString();
         }
-        return user.getRole().split(",");
+        return user.getRole().toString();
     }
 
     public String signUpUser(AppUser appUser){
@@ -71,7 +76,13 @@ public class AppUserService implements UserDetailsService {
 
         appUser.setPassword(encodedPassword);
 
+        Cart cart = new Cart(appUser, new HashMap<>());
+        appUser.setCart(cart);
+        // TODO: CHECK THE CHANGING CODE
         appUserRepository.save(appUser);
+
+        cart.setUser(appUser);
+        cartRepository.save(cart);
 
         String token = UUID.randomUUID().toString();
 
@@ -89,5 +100,18 @@ public class AppUserService implements UserDetailsService {
 
     public void enableAppUser(String email) {
         appUserRepository.enableAppUser(email);
+    }
+
+    public Long getCurrentUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                String email = ((UserDetails) principal).getUsername();
+                Optional<AppUser> user = appUserRepository.findByEmail(email);
+                return user.map(AppUser::getId).orElse(null);
+            }
+        }
+        return null;
     }
 }
