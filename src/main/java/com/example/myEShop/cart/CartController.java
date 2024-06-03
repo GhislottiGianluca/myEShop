@@ -16,11 +16,10 @@ import java.util.Map;
 public class CartController {
 
     private final CartService cartService;
-    private final AppUserService appUserService;
 
-    @PostMapping("/delete")
-    public void handlingDeletingCartItems(@RequestBody Long prod_id){
-        cartService.deleteCartElement(prod_id);
+    @GetMapping("/getCartItems")
+    public List<CartItemsWrapper> getCartItems() {
+        return cartService.getCartItems();
     }
 
     @PostMapping("/addProduct")
@@ -28,18 +27,13 @@ public class CartController {
         cartService.addCartElement(cartRequest.getProd_id(), cartRequest.getQuantity());
     }
 
-    @PostMapping("/removeProduct")
-    public void handlingRemovingCartItem(@RequestBody Long prod_id){
-        cartService.removeCartElement(prod_id);
+    @PostMapping("/removeCartItem")
+    public void handlingRemovingCartItem(@RequestBody CartRequest cartRequest){
+        cartService.removeCartElement(cartRequest.getProd_id());
     }
 
-    @PutMapping("/cartItemQuantity")
-    public void handlingCartQuantity(@RequestBody Long prod_id, int quantity){
-        cartService.handlingCartQuantity(prod_id, quantity);
-    }
-
-    @GetMapping("/getCartItems")
-    public List<CartItemsWrapper> getCartItems() {
-        return cartService.getCartItems();
+    @PutMapping("/updateItemQuantity")
+    public void handlingCartQuantity(@RequestBody CartRequest cartRequest){
+        cartService.handlingCartQuantity(cartRequest.getProd_id(), cartRequest.getQuantity());
     }
 }
