@@ -31,6 +31,7 @@ public class AppUserService implements UserDetailsService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
     private final CartRepository cartRepository;
+    private final AppUserDTOMapper appUserDTOMapper;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -113,5 +114,36 @@ public class AppUserService implements UserDetailsService {
             }
         }
         return null;
+    }
+
+    public AppUserDTO getAppUserInformation(){
+        Optional<AppUser> user = appUserRepository.findAppUsersById(getCurrentUserId());
+        return user.map(appUserDTOMapper).orElse(null);
+    }
+
+    public void deleteAppUser(){
+        appUserRepository.deleteById(getCurrentUserId());
+    }
+
+    public void updateAppUser(AppUserDTO appUserDTO){
+        Optional<AppUser> appUser = appUserRepository.findAppUsersById(getCurrentUserId());
+        if(appUser.isPresent()) {
+            String originalFirstName = appUser.get().getFirstName();
+            if(!originalFirstName.equals(appUserDTO.firstName())){
+                appUser.get().setFirstName(appUserDTO.firstName());
+            }
+
+            String originalLastName = appUser.get().getLastName();
+            if(!originalLastName.equals(appUserDTO.lastName())){
+                appUser.get().setLastName(appUserDTO.lastName());
+            }
+
+            String originalEmail = appUser.get().getEmail();
+            if(!originalEmail.equals(appUserDTO.email())){
+                appUser.get().setEmail(appUserDTO.email());
+            }
+
+            appUserRepository.save(appUser.get());
+        }
     }
 }
