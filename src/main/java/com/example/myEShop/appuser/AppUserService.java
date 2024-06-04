@@ -79,7 +79,6 @@ public class AppUserService implements UserDetailsService {
 
         Cart cart = new Cart(appUser, new HashMap<>());
         appUser.setCart(cart);
-        // TODO: CHECK THE CHANGING CODE
         appUserRepository.save(appUser);
 
         cart.setUser(appUser);

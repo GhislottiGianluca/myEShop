@@ -1,5 +1,6 @@
 package com.example.myEShop.appuser;
 
+import com.example.myEShop.order.Order;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import com.example.myEShop.cart.Cart;
 import jakarta.persistence.*;
 import java.util.Collections;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -45,6 +47,10 @@ public class AppUser implements UserDetails {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @PrimaryKeyJoinColumn
     private Cart cart;
+
+    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private List<Order> orders;
 
     public AppUser(String firstName,
                    String lastName,

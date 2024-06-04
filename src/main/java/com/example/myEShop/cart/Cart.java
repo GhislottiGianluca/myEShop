@@ -15,18 +15,19 @@ import java.util.HashMap;
 @Entity
 public class Cart {
     @Id
+    @Column(name = "id")
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private AppUser user;
 
     @ElementCollection
     @CollectionTable(name = "cart_items", joinColumns = @JoinColumn(name = "cart_id"))
     @MapKeyColumn(name = "product_id")
+    @Column(name = "quantity")
     private Map<Long, Integer> items;
-
 
     public Cart(AppUser user, HashMap<Long, Integer> items){
         this.user = user;

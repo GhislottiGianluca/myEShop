@@ -1,14 +1,10 @@
 package com.example.myEShop.cart;
 
-import com.example.myEShop.appuser.AppUser;
-import com.example.myEShop.appuser.AppUserService;
-import com.example.myEShop.product.ProductDTO;
+import com.example.myEShop.order.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(path="api/v1/cart")
@@ -36,4 +32,5 @@ public class CartController {
     public void handlingCartQuantity(@RequestBody CartRequest cartRequest){
         cartService.handlingCartQuantity(cartRequest.getProd_id(), cartRequest.getQuantity());
     }
+
 }

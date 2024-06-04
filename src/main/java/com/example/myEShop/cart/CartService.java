@@ -31,9 +31,13 @@ public class CartService {
         this.productService = productService;
     }
 
+    public Cart getCartById(){
+        return cartRepository.findCartByUserId(appUserService.getCurrentUserId());
+    }
+
     @Transactional
     public void addCartElement(Long id_prod, int quantity) {
-        Cart cart = cartRepository.findCartByUserId(appUserService.getCurrentUserId());
+        Cart cart = getCartById();
 
         Map<Long, Integer> updated_items = cart.getItems();
 
@@ -50,7 +54,7 @@ public class CartService {
     @Transactional
     public void removeCartElement(Long id_prod){
 
-        Cart cart = cartRepository.findCartByUserId(appUserService.getCurrentUserId());
+        Cart cart = getCartById();
 
         Map<Long, Integer> updated_items = cart.getItems();
 
@@ -60,7 +64,7 @@ public class CartService {
 
     @Transactional
     public void handlingCartQuantity(Long id_prod, int quantity){
-        Cart cart = cartRepository.findCartByUserId(appUserService.getCurrentUserId());
+        Cart cart = getCartById();
 
         Map<Long, Integer> updated_cart = cart.getItems();
 
@@ -74,7 +78,7 @@ public class CartService {
     }
 
     public List<CartItemsWrapper> getCartItems() {
-        Cart cart = cartRepository.findCartByUserId(appUserService.getCurrentUserId());
+        Cart cart = getCartById();
         Map<Long, Integer> cartItems = cart.getItems();
 
         List<ProductDTO> cartProducts = productService.getProductsByIds(cartItems.keySet());
