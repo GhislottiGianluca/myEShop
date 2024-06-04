@@ -125,22 +125,21 @@ public class AppUserService implements UserDetailsService {
         appUserRepository.deleteById(getCurrentUserId());
     }
 
-    public void updateAppUser(AppUserDTO appUserDTO){
+    public void updateAppUser(AppUserRequest appUserRequest){
         Optional<AppUser> appUser = appUserRepository.findAppUsersById(getCurrentUserId());
         if(appUser.isPresent()) {
             String originalFirstName = appUser.get().getFirstName();
-            if(!originalFirstName.equals(appUserDTO.firstName())){
-                appUser.get().setFirstName(appUserDTO.firstName());
+            if((appUserRequest.getFirstName() != null)
+                    && (!originalFirstName.equals(appUserRequest.getFirstName()))){
+
+                appUser.get().setFirstName(appUserRequest.getFirstName());
             }
 
             String originalLastName = appUser.get().getLastName();
-            if(!originalLastName.equals(appUserDTO.lastName())){
-                appUser.get().setLastName(appUserDTO.lastName());
-            }
+            if((appUserRequest.getLastName() != null)
+                    && (!originalLastName.equals(appUserRequest.getLastName()))){
 
-            String originalEmail = appUser.get().getEmail();
-            if(!originalEmail.equals(appUserDTO.email())){
-                appUser.get().setEmail(appUserDTO.email());
+                appUser.get().setLastName(appUserRequest.getLastName());
             }
 
             appUserRepository.save(appUser.get());

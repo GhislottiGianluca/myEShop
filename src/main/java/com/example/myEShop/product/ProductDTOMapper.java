@@ -1,8 +1,8 @@
 package com.example.myEShop.product;
 
+import java.util.function.Function;
 import org.springframework.stereotype.Service;
 
-import java.util.function.Function;
 
 @Service
 public class ProductDTOMapper implements Function<Product, ProductDTO>{

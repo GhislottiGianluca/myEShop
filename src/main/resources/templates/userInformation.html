@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Information page</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sedan:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css" crossorigin="anonymous">
+</head>
+<body>
+
+<!------------------------Navbar------------------------->
+<div class="small-container">
+    <div class="navbar">
+        <div class="logo">
+            <a href="/user/home"> <img src="/img/logo.webp" width="100px"></a>
+        </div>
+        <nav>
+            <ul id="MenuItems">
+                <li><a href="/user/home">Home</a></li>
+                <li><a href="/products">Product</a></li>
+                <li><a href="/user-information">Account</a></li>
+            </ul>
+            <a href="/cart"><img src="/img/cart_logo.png" width="30px" height="30px"></a>
+            <img src="/img/menu-icon.png" class="menu-icon" onclick="menutoggle()">
+        </nav>
+    </div>
+</div>
+
+<!------------------------Update information form------------------------->
+
+<div class="user-information-container">
+
+    <h3>My Account</h3><br>
+    <div class="form-container-user">
+        <form id="updateForm">
+            <input id="firstname" type="text" >
+            <input id="secondname" type="text">
+            <button type="submit" class="btn" onclick="event.preventDefault(); submitUpdatingInformation()">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+<!---------------------------- footer ------------------------------->
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download App for Android and ios mobile phone.</p>
+                <div class="app-logo">
+                    <img src="/img/getitGooglePlay.png">
+                    <img src="/img/Download%20on%20the%20AppStore.png">
+                </div>
+            </div>
+
+            <div class="footer-col-2">
+                <img src="/img/logo.webp">
+                <p>Our purpose is to sustainably make the pleasure benefits of ...</p>
+            </div>
+
+            <div class="footer-col-3">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li>Coupons</li>
+                    <li>Blog</li>
+                    <li>Return Policy</li>
+                    <li>Join Affiliate</li>
+                </ul>
+            </div>
+
+            <div class="footer-col-4">
+                <h3>Follow us</h3>
+                <ul>
+                    <li>Tik Tok</li>
+                    <li>Twitter</li>
+                    <li>Instagram</li>
+                    <li>YouTube</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">Copyright 2024 - Gianluca Ghislotti</p>
+    </div>
+</div>
+
+
+<script>
+    function submitUpdatingInformation(){
+        var firstNameInput = document.getElementById('firstname');
+        var lastNameInput = document.getElementById('secondname');
+
+        var updateForm = document.getElementById('updateForm');
+
+        fetch('/api/v1/user', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                firstName: firstNameInput.value,
+                secondName: lastNameInput.value,
+            })
+        })
+            .then(response => {
+                if (response.ok) {
+                    updateForm.reset();
+                    fillFormPlaceholder()
+                }
+                throw new Error('Network response was not ok.');
+            })
+    }
+
+    function fillFormPlaceholder(){
+        var firstNameInput = document.getElementById('firstname');
+        var lastNameInput = document.getElementById('secondname');
+
+        fetch('/api/v1/user')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch cart items');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('App User data received:', data);
+                firstNameInput.placeholder = data.firstName;
+                lastNameInput.placeholder = data.lastName;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error fetching App User Information.');
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        fillFormPlaceholder();
+    });
+</script>
+
+</body>
+</html>

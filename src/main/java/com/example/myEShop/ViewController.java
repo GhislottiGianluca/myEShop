@@ -40,4 +40,7 @@ public class ViewController {
 
     @GetMapping("/product-details/{id}")
     public String handleProductDetails(){return "product-details";}
+
+    @GetMapping("/user-information")
+    public String handleUserInformationPage(){return "userInformation";}
 }
