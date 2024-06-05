@@ -26,7 +26,6 @@ public class Order {
     private Long id;
 
     @ManyToOne
-    @MapsId
     @JoinColumn(name = "app_user_id", nullable = false)
     private AppUser appUser;
 
@@ -46,5 +45,6 @@ public class Order {
         this.appUser = appUser;
         this.items = items;
         this.status = status;
+        this.createdAt = LocalDateTime.now();
     }
 }

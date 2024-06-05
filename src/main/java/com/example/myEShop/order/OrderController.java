@@ -1,29 +1,23 @@
 package com.example.myEShop.order;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path="/api/v1/order")
 public class OrderController {
 
     private final OrderService orderService;
-    private final OrderDTOMapper orderDTOMapper;
 
-    public OrderController(OrderService orderService, OrderDTOMapper orderDTOMapper){
-        this.orderService = orderService;
-        this.orderDTOMapper = orderDTOMapper;
-    }
+    public OrderController(OrderService orderService){this.orderService = orderService;}
 
     @GetMapping("/getOrders")
-    public List<OrderDTO> getOrders(){
-        return orderService.getOrders()
-                .stream()
-                .map(orderDTOMapper)
-                .collect(Collectors.toList());
-    }
+    public List<OrderItemsWrapper> getOrders(){return orderService.getOrders();}
+
     @PostMapping("/createOrder")
     public void handlingCreationOfOrder(){
         orderService.createOrder();
