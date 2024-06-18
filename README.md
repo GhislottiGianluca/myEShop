@@ -7,7 +7,11 @@ Web application developed using Spring Boot and Hibernate for backend services, 
 - **Hibernate**: ORM - Object Relational Mapping
 - **PostgreSQL**
 - **Java Mail Sender** connected with an **SMTP server** hosted by Google
+- **H2 In-Memory Database** : isolation of the database during test execution.
 
 
 ## Features Implemented
-- Registration with email confirmation
+- *Registration* with *email confirmation*.
+- Display of *products*, loaded by a Rest API and dynamically generated html based on the content of the response.
+- Modification of products in the *cart*, instant update of contents in case of removal and subtotal calculation.
+- Creating and displaying *orders* on the user's Account page.
