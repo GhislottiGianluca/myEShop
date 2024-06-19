@@ -32,9 +32,7 @@ public class ProductService {
         return p.map(productDTOMapper).orElse(null);
     }
 
-    public void addNewProduct(Product product) {
-        productRepository.save(product);
-    }
+    public void addNewProduct(Product product) {productRepository.save(product);}
 
     public void deleteProduct(Long id) {
         boolean exist = productRepository.existsById(id);
@@ -81,27 +79,6 @@ public class ProductService {
 
     public List<ProductDTO> getBestFourProductsForSales(){
         return productRepository.getBestFourProductForSales()
-                .stream()
-                .map(productDTOMapper)
-                .collect(Collectors.toList());
-    }
-
-    public List<ProductDTO> getCupsProducts(){
-        return productRepository.getCupsProduct()
-                .stream()
-                .map(productDTOMapper)
-                .collect(Collectors.toList());
-    }
-
-    public List<ProductDTO> getTShirtProducts(){
-        return productRepository.getTShirtProduct()
-                .stream()
-                .map(productDTOMapper)
-                .collect(Collectors.toList());
-    }
-
-    public List<ProductDTO> getSweatshirtProducts(){
-        return productRepository.getSweatshirtProduct()
                 .stream()
                 .map(productDTOMapper)
                 .collect(Collectors.toList());

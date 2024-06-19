@@ -72,7 +72,7 @@ class AppUserRepositoryTest {
         entityManager.refresh(appUser.get());
         appUser = underTest.findByEmail(email);
 
-        // When & Then
+        // Then
         if (appUser.isPresent()) {
             assertTrue(appUser.get().isEnabled());
         }else{

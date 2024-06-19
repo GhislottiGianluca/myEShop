@@ -3,7 +3,7 @@ package com.example.myEShop.appuser;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path="api/v1/user")
+@RequestMapping(path="/api/v1/user")
 public class AppUserController {
 
     private final AppUserService appUserService;

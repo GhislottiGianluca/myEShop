@@ -45,6 +45,7 @@ public class Product {
     private int sold;
 
     public Product() {
+        this.creationTime = LocalDateTime.now();
     }
 
     public Product(Long id,
@@ -71,6 +72,7 @@ public class Product {
         this.currency = currency;
         this.remained = remained;
         this.sold = sold;
+        this.creationTime = LocalDateTime.now();
     }
 
     public Product(String title,
@@ -95,5 +97,6 @@ public class Product {
         this.currency = currency;
         this.remained = remained;
         this.sold = sold;
+        this.creationTime = LocalDateTime.now();
     }
 }

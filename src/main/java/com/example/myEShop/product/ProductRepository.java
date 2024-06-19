@@ -19,27 +19,15 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p ORDER BY p.price")
     List<Product> getProductsByPrice();
 
+    @Query("SELECT p FROM Product p ORDER BY p.sold ASC")
+    List<Product> getProductsBySold();
+
     @Query("SELECT p FROM Product p WHERE p.category = ?1 ORDER BY p.price")
     List<Product> getProductsByPriceWithCategory(String category);
-
-    @Query("SELECT p FROM Product p ORDER BY p.sold")
-    List<Product> getProductsBySold();
 
     @Query("SELECT p FROM Product p WHERE p.category = ?1 ORDER BY p.sold")
     List<Product> getProductsBySoldWithCategory(String category);
 
     @Query("SELECT p FROM Product p ORDER BY p.sold DESC LIMIT 4")
     List<Product> getBestFourProductForSales();
-
-    @Query("SELECT p FROM Product p WHERE p.category='Cups'")
-    List<Product> getCupsProduct();
-
-    @Query("SELECT p FROM Product p WHERE p.category='TShirt'")
-    List<Product> getTShirtProduct();
-
-    @Query("SELECT p FROM Product p WHERE p.category='Sweatshirt'")
-    List<Product> getSweatshirtProduct();
-
-    // TODO OTHER CASE
-    
 }

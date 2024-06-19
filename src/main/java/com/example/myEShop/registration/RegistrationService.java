@@ -49,7 +49,6 @@ public class RegistrationService {
         return 1;
     }
 
-
     @Transactional
     public String confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService

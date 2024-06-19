@@ -66,12 +66,12 @@ public class ProductController {
     public List<ProductDTO> getBestSellers(){return productService.getBestFourProductsForSales();}
 
     @GetMapping(path="/getCupsProducts")
-    public List<ProductDTO> getCupsProduct(){return productService.getCupsProducts();}
+    public List<ProductDTO> getCupsProduct(){return productService.getProductByCategory("CUP");}
 
     @GetMapping(path="/getTShirtProducts")
-    public List<ProductDTO> getTShirtProduct(){return productService.getTShirtProducts();}
+    public List<ProductDTO> getTShirtProduct(){return productService.getProductByCategory("TSHIRT");}
 
     @GetMapping(path="/getSweatshirtProducts")
-    public List<ProductDTO> getSweatshirtProduct(){return productService.getCupsProducts();}
+    public List<ProductDTO> getSweatshirtProduct(){return productService.getProductByCategory("SWEATSHIRT");}
 
 }

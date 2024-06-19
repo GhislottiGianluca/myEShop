@@ -52,6 +52,13 @@ public class CartService {
     }
 
     @Transactional
+    public void removeAllCartElement(){
+        Cart cart = getCartById();
+        cart.setItems(new HashMap<>());
+        cartRepository.save(cart);
+    }
+
+    @Transactional
     public void removeCartElement(Long id_prod){
 
         Cart cart = getCartById();

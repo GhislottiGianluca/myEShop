@@ -15,10 +15,10 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     Optional<AppUser> findByEmail(String email);
 
     Optional<AppUser> findAppUsersById(Long id);
+
     @Transactional
     @Modifying
     @Query("UPDATE AppUser a " +
-            "SET a.enabled = TRUE WHERE a.email = ?1")
-    int enableAppUser(String email);
-
+            "SET a.enabled = true WHERE a.email = ?1")
+    void enableAppUser(String email);
 }
