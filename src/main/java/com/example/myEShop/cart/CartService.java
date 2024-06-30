@@ -31,6 +31,8 @@ public class CartService {
         this.productService = productService;
     }
 
+    public void saveCart(Cart cart){cartRepository.save(cart);}
+
     public Cart getCartById(){
         return cartRepository.findCartByUserId(appUserService.getCurrentUserId());
     }

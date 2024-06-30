@@ -1,7 +1,6 @@
 package com.example.myEShop.appuser;
 
 import com.example.myEShop.registration.token.ConfirmationToken;
-import com.example.myEShop.registration.token.ConfirmationTokenRepository;
 import com.example.myEShop.registration.token.ConfirmationTokenService;
 import com.example.myEShop.cart.*;
 import org.springframework.security.core.Authentication;
@@ -27,17 +26,16 @@ public class AppUserService implements UserDetailsService {
 
     private final static String USER_NOT_FOUND_MSG = "User with email %s not found";
     private final AppUserRepository appUserRepository;
-    private final ConfirmationTokenRepository confirmationTokenRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
-    private final CartRepository cartRepository;
+    private final CartService cartService;
     private final AppUserDTOMapper appUserDTOMapper;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<AppUser> user = appUserRepository.findByEmail(email);
         if(user.isPresent()){
-            var userObj = user.get();
+            AppUser userObj = user.get();
             return User.builder()
                     .username(userObj.getUsername())
                     .password(userObj.getPassword())
@@ -69,7 +67,7 @@ public class AppUserService implements UserDetailsService {
                 throw new IllegalStateException("User already exists");
             }else{
 
-                return confirmationTokenRepository.findTokenByAppUser(existingUser.getId());
+                return confirmationTokenService.findTokenByAppUser(existingUser.getId());
             }
         }
 
@@ -82,7 +80,7 @@ public class AppUserService implements UserDetailsService {
         appUserRepository.save(appUser);
 
         cart.setUser(appUser);
-        cartRepository.save(cart);
+        cartService.saveCart(cart);
 
         String token = UUID.randomUUID().toString();
 
