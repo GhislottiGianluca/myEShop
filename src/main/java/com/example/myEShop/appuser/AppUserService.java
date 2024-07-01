@@ -3,6 +3,7 @@ package com.example.myEShop.appuser;
 import com.example.myEShop.registration.token.ConfirmationToken;
 import com.example.myEShop.registration.token.ConfirmationTokenService;
 import com.example.myEShop.cart.*;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 import lombok.AllArgsConstructor;
 
@@ -28,7 +30,7 @@ public class AppUserService implements UserDetailsService {
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
-    private final CartService cartService;
+    private final @Lazy CartService cartService;
     private final AppUserDTOMapper appUserDTOMapper;
 
     @Override

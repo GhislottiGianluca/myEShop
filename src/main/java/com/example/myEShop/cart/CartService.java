@@ -5,6 +5,7 @@ import com.example.myEShop.appuser.AppUserService;
 import com.example.myEShop.product.ProductCategories;
 import com.example.myEShop.product.ProductDTO;
 import com.example.myEShop.product.ProductService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -24,7 +25,7 @@ public class CartService {
     ProductService productService;
 
     public CartService (CartRepository cartRepository,
-                        AppUserService appUserService,
+                        @Lazy AppUserService appUserService,
                         ProductService productService){
         this.cartRepository = cartRepository;
         this.appUserService = appUserService;
@@ -96,6 +97,4 @@ public class CartService {
                 .map(productDTO -> new CartItemsWrapper(productDTO, cartItems.get(productDTO.id())))
                 .collect(Collectors.toList());
     }
-
-
 }
