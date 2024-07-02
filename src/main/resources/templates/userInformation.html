@@ -33,7 +33,7 @@
 
 <div class="user-information-container">
 
-    <h3>My Account</h3><br>
+    <h2>My Account</h2><br>
     <div class="form-container-user">
         <form id="updateForm">
             <input id="firstname" type="text" >
@@ -43,7 +43,38 @@
     </div>
 </div>
 
+<!------------------------Order section------------------------->
 
+<div style="text-align: center;">
+    <h2>Orders details</h2>
+</div>
+<div class="cart-page">
+    <!------
+    <table>
+        <tr>
+            <th>Products</th>
+            <th>Quantity</th>
+            <th>Product image</th>
+            <th>Creation date</th>
+            <th>State</th>
+        </tr>
+        <tr>
+            <td>Nome del Prodotto 1</td>
+            <td>2</td>
+            <td><img src="link_all_immagine1.jpg" alt="Prodotto 1"></td>
+            <td>04/06/2024</td>
+            <td>In Elaborazione</td>
+        </tr>
+        <tr>
+            <td>Nome del Prodotto 2</td>
+            <td>1</td>
+            <td><img src="link_all_immagine2.jpg" alt="Prodotto 2"></td>
+            <td>04/06/2024</td>
+            <td>Spedito</td>
+        </tr>
+    </table>
+    -------->
+</div>
 <!---------------------------- footer ------------------------------->
 
 <div class="footer">
@@ -88,59 +119,7 @@
     </div>
 </div>
 
-
-<script>
-    function submitUpdatingInformation(){
-        var firstNameInput = document.getElementById('firstname');
-        var lastNameInput = document.getElementById('secondname');
-
-        var updateForm = document.getElementById('updateForm');
-
-        fetch('/api/v1/user', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                firstName: firstNameInput.value,
-                secondName: lastNameInput.value,
-            })
-        })
-            .then(response => {
-                if (response.ok) {
-                    updateForm.reset();
-                    fillFormPlaceholder()
-                }
-                throw new Error('Network response was not ok.');
-            })
-    }
-
-    function fillFormPlaceholder(){
-        var firstNameInput = document.getElementById('firstname');
-        var lastNameInput = document.getElementById('secondname');
-
-        fetch('/api/v1/user')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch cart items');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('App User data received:', data);
-                firstNameInput.placeholder = data.firstName;
-                lastNameInput.placeholder = data.lastName;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error fetching App User Information.');
-            });
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        fillFormPlaceholder();
-    });
-</script>
+<script src="/js/userInformation.js"></script>
 
 </body>
 </html>
