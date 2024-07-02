@@ -13,9 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class CartRepositoryTest {
 
     @Autowired
-    AppUserRepository appUserRepository;
+    private AppUserRepository appUserRepository;
     @Autowired
-    CartRepository underTest;
+    private CartRepository underTest;
     @Test
     void itShouldFindCartByUserId() {
         // Given

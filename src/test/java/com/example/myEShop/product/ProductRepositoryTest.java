@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductRepositoryTest {
 
     @Autowired
-    ProductRepository underTest;
+    private ProductRepository underTest;
 
     @BeforeEach
     void setUp() {

@@ -27,18 +27,18 @@ import static org.mockito.Mockito.*;
 class CartServiceTest {
 
   @Mock
-  CartRepository cartRepository;
+  private CartRepository cartRepository;
   @Mock
-  AppUserService appUserService;
+  private AppUserService appUserService;
   @Mock
-  ProductService productService;
+  private ProductService productService;
   @Mock
-  AppUserRepository appUserRepository;
-  CartService underTest;
+  private AppUserRepository appUserRepository;
+  private CartService underTest;
 
 
-  AppUser appUser;
-  Cart cart;
+  private AppUser appUser;
+  private Cart cart;
 
   @BeforeEach
   void setUp() {

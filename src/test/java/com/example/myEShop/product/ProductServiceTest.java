@@ -17,15 +17,15 @@ import static org.mockito.Mockito.*;
 class ProductServiceTest {
 
     @Mock
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
     @Mock
-    ProductDTOMapper productDTOMapper;
-    ProductService underTest;
+    private ProductDTOMapper productDTOMapper;
+    private ProductService underTest;
 
 
-    Product product1, product2, product3, product4;
-    ProductDTO productDTO1, productDTO2, productDTO3, productDTO4;
-    List<Product> products;
+    private Product product1, product2, product3, product4;
+    private ProductDTO productDTO1, productDTO2, productDTO3, productDTO4;
+    private List<Product> products;
 
     @BeforeEach
     void setUp() {

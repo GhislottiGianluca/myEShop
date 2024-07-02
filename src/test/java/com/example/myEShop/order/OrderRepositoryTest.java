@@ -25,13 +25,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class OrderRepositoryTest {
 
     @Autowired
-    AppUserRepository appUserRepository;
+    private AppUserRepository appUserRepository;
     @Autowired
-    CartRepository cartRepository;
+    private CartRepository cartRepository;
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
     @Autowired
-    OrderRepository underTest;
+    private OrderRepository underTest;
 
     @Test
     void itShouldFindOrdersByUserId() {

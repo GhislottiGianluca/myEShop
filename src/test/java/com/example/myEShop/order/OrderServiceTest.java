@@ -26,21 +26,21 @@ import static org.mockito.Mockito.*;
 class OrderServiceTest {
 
     @Mock
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
     @Mock
-    CartService cartService;
+    private CartService cartService;
     @Mock
-    AppUserService appUserService;
+    private AppUserService appUserService;
     @Mock
-    AppUserRepository appUserRepository;
+    private AppUserRepository appUserRepository;
     @Mock
-    ProductService productService;
-    OrderService underTest;
+    private ProductService productService;
+    private OrderService underTest;
 
 
-    AppUser appUser;
-    Cart cart;
-    Order order;
+    private AppUser appUser;
+    private Cart cart;
+    private Order order;
 
     @BeforeEach
     void setUp() {
