@@ -22,7 +22,7 @@
                 <ul id="MenuItems">
                     <li><a href="/user/home">Home</a></li>
                     <li><a href="/products">Product</a></li>
-                    <li><a href="/login">Account</a></li>
+                    <li><a href="/user-information">Account</a></li>
                 </ul>
                 <a href="/cart"><img src="/img/cart_logo.png" width="30px" height="30px"></a>
                 <img src="/img/menu-icon.png" class="menu-icon" onclick="menutoggle()">
@@ -31,11 +31,14 @@
         <div class="row">
             <div class="col-2">
                 <h1>myEShop</h1>
-                <p>Welcome to my E-Commerce site</p>
+                <p>Unleash your coding passion in style!</p>
+                <p>Dive into a world of quirky gadgets adorned with iconic </p>
+                <p>computer memes that celebrate your love for programming.</p>
+
                 <a href="#categories-section" class="btn" onclick="scrollToCategories()">Explore now &#8594;</a>
             </div>
             <div class="col-2">
-                <img src="https://www.dropbox.com/scl/fi/hxx9vusbixr66vbqxln5v/FirstImage.png?rlkey=1aiyv2yatcepblvh1rrqubh9f&st=p6wkznwf&raw=1" width="800px">
+                <img src="/img/FirstImage.png">
             </div>
         </div>
     </div>
@@ -47,15 +50,27 @@
         <h2 class="Title">Categories</h2>
         <div class="small-container">
             <div class="row">
-                <div class="col-3">
-                    <img src="/img/logo.webp">
-                </div>
-                <div class="col-3">
-                    <img src="/img/logo.webp">
-                </div>
-                <div class="col-3">
-                    <img src="/img/logo.webp">
-                </div>
+                <a href="/products/Cup">
+                    <div class="col-3">
+                        <img src="/img/CupCategoryImage.jpg" width="250px">
+                        <br>
+                        <h3>Cups</h3>
+                    </div>
+                </a>
+                <a href="/products/TShirt">
+                    <div class="col-3">
+                        <img src="/img/TShirtCategory.jpg" width="250px">
+                        <br>
+                        <h3>T-Shirts</h3>
+                    </div>
+                </a>
+                <a href="/products/Sweatshirt">
+                    <div class="col-3">
+                        <img src="/img/SweatshirtCategory.png" width="250px">
+                        <br>
+                        <h3>Sweatshirts</h3>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
@@ -64,60 +79,8 @@
 
 <div class="small-container">
     <h2 class="Title">Best Sellers</h2>
-    <div class="row">
 
-        <div class="col-4">
-            <a href="product-details.html"><img src="/img/logo.webp"></a>
-            <a href="product-details.html"><h4>Product name</h4></a>
-            <div class="rating">
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star-half-alt" aria-hidden="true"></i>
-            </div>
-            <p>$100,00</p>
-        </div>
-
-        <div class="col-4">
-            <img src="/img/logo.webp">
-            <h4>Product name</h4>
-            <div class="rating">
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star-half-alt" aria-hidden="true"></i>
-            </div>
-            <p>$100,00</p>
-        </div>
-
-        <div class="col-4">
-            <img src="/img/logo.webp">
-            <h4>Product name</h4>
-            <div class="rating">
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star-half-alt" aria-hidden="true"></i>
-            </div>
-            <p>$100,00</p>
-        </div>
-
-        <div class="col-4">
-            <img src="/img/logo.webp">
-            <h4>Product name</h4>
-            <div class="rating">
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star" aria-hidden="true"></i>
-                <i class="fas fa-star-half-alt" aria-hidden="true"></i>
-            </div>
-            <p>$100,00</p>
-        </div>
-    </div>
+    <div id="BestSellersPlaceHolder"></div>
 </div>
 
     <!----------------------Offert------------------------>
@@ -126,15 +89,12 @@
     <div class="container">
         <div class="row">
             <div class="col-2">
-                <img src="/img/logo.webp" class="offer-img">
+                <img src="/img/offertProduct.png" class="offer-img">
             </div>
             <div class="col-2">
                 <p>Exclusive Available on myEShop</p>
-                <h1>Product Name</h1>
-                <small>
-                    Product description product description Product description product description Product description product description
-                </small>
-                <a href="" class="btn">Buy Now &#8594</a>
+                <h1>Costume Error 404 Sweatshirt</h1>
+                <a href="/product-details/318" class="btn">Buy Now &#8594</a>
             </div>
         </div>
     </div>
@@ -230,8 +190,8 @@
                 <h3>Download Our App</h3>
                 <p>Download App for Android and ios mobile phone.</p>
                 <div class="app-logo">
-                    <img src="/img/logo.webp">
-                    <img src="/img/logo.webp">
+                    <img src="/img/getitGooglePlay.png">
+                    <img src="/img/Download%20on%20the%20AppStore.png">
                 </div>
             </div>
 
@@ -265,28 +225,7 @@
     </div>
 </div>
 
-<!------ js for toggle menu=---->
-
-<script>
-    var MenuItems = document.getElementById("MenuItems");
-
-    MenuItems.style.maxHeight = "0px";
-
-    function menutoggle(){
-        if(MenuItems.style.maxHeight == "0px"){
-            MenuItems.style.maxHeight = "200px";
-        }else{
-            MenuItems.style.maxHeight = "0px";
-        }
-    }
-</script>
-
-    <script>
-        function scrollToCategories() {
-            var categoriesSection = document.getElementById("categories-section");
-            categoriesSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
+<script src="/js/index.js"></script>
 
 </body>
 </html>
