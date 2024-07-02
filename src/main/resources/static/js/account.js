@@ -1,56 +1,86 @@
-let document;
-document.addEventListener = function (domContentLoaded, param2) {
+var LoginForm = document.getElementById("LoginForm");
+var RegForm = document.getElementById("RegForm");
+var Indicator = document.getElementById("Indicator");
 
-};
-document.getElementById = function (loginForm) {
-    return undefined;
-};
-document.addEventListener('DOMContentLoaded', function() {
-    var LoginForm = document.getElementById("LoginForm");
-    var RegForm = document.getElementById("RegForm");
-    var Indicator = document.getElementById("Indicator");
+function register() {
+    RegForm.style.transform = "translateX(0px)";
+    LoginForm.style.transform = "translateX(-300px)";
+    Indicator.style.transform = "translateX(100px)";
+}
 
-    window.login = function() {
-        RegForm.style.transform = "translateX(300px)";
-        LoginForm.style.transform = "translateX(0px)";
-        Indicator.style.transform = "translateX(0px)";
-    }
+function login() {
+    RegForm.style.transform = "translateX(300px)";
+    LoginForm.style.transform = "translateX(0px)";
+    Indicator.style.transform = "translateX(0px)";
+}
 
-    window.register = function() {
-        RegForm.style.transform = "translateX(0px)";
-        LoginForm.style.transform = "translateX(-300px)";
-        Indicator.style.transform = "translateX(100px)";
-    }
+window.onload = function() {
+    register();
+}
 
-    window.submitForm = function() {
-        var form = document.getElementById('RegForm');
-        var formData = {
-            firstName: form.firstName.value,
-            lastName: form.lastName.value,
-            email: form.email.value,
-            password: form.password.value
+function submitForm() {
+    var form = document.getElementById('RegForm');
+    var formData = {
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        email: form.email.value,
+        password: form.password.value
+    };
+
+    fetch('/api/v1/register/user', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.redirectUrl) {
+                window.location.href = data.redirectUrl;
+            } else {
+                console.log(data);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+
+    return false;
+}
+function loginSubmit(){
+
+    document.getElementById("LoginForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        var usernameInput = document.getElementById('username');
+        var passwordInput = document.getElementById('password');
+
+        var loginData = {
+            username: usernameInput.value,
+            password: passwordInput.value
         };
 
-        fetch('/register/user', {
+        fetch('/login', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: JSON.stringify(formData)
+            body: new URLSearchParams(loginData)
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.redirectUrl) {
-                    window.location.href = data.redirectUrl;
+            .then(response => {
+                if (response.ok && response.redirected) {
+                    window.location.href = response.url;
                 } else {
-                    console.log(data);
+                    return response.text();
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .then(text => {
+                if (text) {
+                    console.error('Login failed:', text);
+                    alert('Login failed: ' + text);
+                }
+            })
+            .catch(error => console.error('Error during login:', error));
+    });
 
-        return false;
-    }
-
-    // Seleziona il comportamento iniziale della pagina.
-    register();
-});
+    return false;
+}
