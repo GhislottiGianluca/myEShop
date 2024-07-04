@@ -10,6 +10,13 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class for sending emails.
+ * <p>
+ * This service implements the {@link EmailSender} interface and provides
+ * functionality to send emails asynchronously.
+ * </p>
+ */
 @Service
 @AllArgsConstructor
 public class EmailService implements EmailSender {
@@ -18,6 +25,16 @@ public class EmailService implements EmailSender {
 
     private final JavaMailSender mailSender;
 
+    /**
+     * Sends an email to the specified recipient.
+     * <p>
+     * This method sends an email asynchronously using {@link JavaMailSender}.
+     * </p>
+     *
+     * @param to the email address of the recipient
+     * @param email the content of the email to be sent
+     * @throws IllegalStateException if there is a failure in sending the email
+     */
     @Override
     @Async
     public void send(String to, String email) {
@@ -29,10 +46,9 @@ public class EmailService implements EmailSender {
             helper.setSubject("Confirm your email");
             helper.setFrom("");
             mailSender.send(mimeMessage);
-
         } catch (MessagingException e) {
-            LOGGER.error("failed to send email", e);
-            throw new IllegalStateException("failed to send email");
+            LOGGER.error("Failed to send email", e);
+            throw new IllegalStateException("Failed to send email", e);
         }
     }
 }
