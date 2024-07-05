@@ -13,6 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+/**
+ * Service for handling user registration and email confirmation.
+ * <p>
+ * This service is responsible for registering new users, sending confirmation
+ * emails, and validating email confirmation tokens.
+ * </p>
+ */
 @Service
 @AllArgsConstructor
 public class RegistrationService {
@@ -22,11 +29,18 @@ public class RegistrationService {
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
 
+    /**
+     * Registers a new user and sends a confirmation email.
+     *
+     * @param request the registration request containing user details
+     * @return an integer indicating the registration result (1 for success)
+     * @throws IllegalStateException if the email is not valid
+     */
     public int register(RegistrationRequest request) {
 
         boolean isValidEmail = emailValidator.test(request.getEmail());
 
-        if (!isValidEmail){
+        if (!isValidEmail) {
             throw new IllegalStateException("Email not valid.");
         }
 
@@ -49,6 +63,13 @@ public class RegistrationService {
         return 1;
     }
 
+    /**
+     * Confirms a token and enables the corresponding user account.
+     *
+     * @param token the confirmation token
+     * @return a confirmation message
+     * @throws IllegalStateException if the token is not found, already confirmed, or expired
+     */
     @Transactional
     public String confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService
@@ -72,6 +93,13 @@ public class RegistrationService {
         return "confirmed";
     }
 
+    /**
+     * Builds the email content for the confirmation email.
+     *
+     * @param name the recipient's name
+     * @param link the confirmation link
+     * @return the email content as a string
+     */
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
